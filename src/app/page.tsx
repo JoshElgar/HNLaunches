@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-8 sm:p-12">
       <p className="mb-8 z-0">
-        Every "Launch HN", chronologically, coloured by points.
+        Every &quot;Launch HN&quot;, chronologically, coloured by points.
       </p>
       <LaunchesGrid />
     </main>

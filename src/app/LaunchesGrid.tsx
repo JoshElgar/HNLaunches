@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from "react";
 import launchData from "./data/launch_hn_responses.json";
 
 type LaunchData = {
-  id: number;
   points: number;
   created_at: string;
   title: string;
@@ -18,7 +17,7 @@ interface Square extends Omit<LaunchData[number], "color"> {
 const CommitGraph: React.FC = () => {
   const [squares, setSquares] = useState<Square[]>([]);
   const [tooltip, setTooltip] = useState<{
-    id: number;
+    story_id: number;
     title: string;
     points: number;
     created_at: string;
@@ -60,7 +59,7 @@ const CommitGraph: React.FC = () => {
       } else {
         // Find the index in the filtered array for logarithmic scaling
         const index = filteredLaunchData.findIndex(
-          (filteredItem) => filteredItem.id === item.id
+          (filteredItem) => filteredItem.story_id === item.story_id
         );
         const saturation = (item.points / calculatedPercentile95thScore) * 100;
         const boundedSaturation = Math.min(saturation, 100); // Ensure saturation does not exceed 100%
@@ -116,7 +115,7 @@ const CommitGraph: React.FC = () => {
       >
         {squares.map((square) => (
           <a
-            key={square.id}
+            key={square.story_id}
             href={`https://news.ycombinator.com/item?id=${square.story_id}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -125,7 +124,7 @@ const CommitGraph: React.FC = () => {
             onMouseEnter={(event) => {
               const rect = event.currentTarget.getBoundingClientRect();
               setTooltip({
-                id: square.id,
+                story_id: square.story_id,
                 title: square.title,
                 points: square.points,
                 created_at: square.created_at,
